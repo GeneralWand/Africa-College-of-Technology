@@ -1,0 +1,99 @@
+:host {
+    --ion-background-color: #f5f7fa;
+  }
+  
+  ion-header {
+    ion-toolbar {
+      --background: linear-gradient(135deg, var(--ion-color-secondary), var(--ion-color-tertiary));
+      color: white;
+  
+      ion-title {
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+    }
+  }
+  
+  .lecturer-page {
+    --background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  }
+  
+  .hero-banner {
+    background: linear-gradient(135deg, var(--brown-accent), #a0522d);
+    border-radius: 20px;
+    color: white;
+    padding: 30px 20px;
+    position: relative;
+    margin-bottom: 20px;
+    overflow: hidden;
+  
+    .text-content {
+      position: relative;
+      z-index: 2;
+  
+      h2 {
+        font-size: 2rem;
+        margin: 0 0 10px;
+        color: var(--ion-color-tertiary);
+      }
+  
+      p {
+        margin-bottom: 15px;
+        opacity: 0.9;
+      }
+  
+      ion-button {
+        font-weight: 600;
+      }
+    }
+  
+    .graphic-elements {
+      .triangle-orange {
+        position: absolute;
+        top: -30px;
+        right: 40px;
+        width: 0;
+        height: 0;
+        border-left: 80px solid transparent;
+        border-right: 80px solid transparent;
+        border-bottom: 120px solid var(--orange-accent);
+        opacity: 0.2;
+      }
+  
+      .triangle-blue {
+        position: absolute;
+        bottom: -20px;
+        left: 30px;
+        width: 0;
+        height: 0;
+        border-left: 60px solid var(--ion-color-primary);
+        border-bottom: 60px solid transparent;
+        opacity: 0.2;
+      }
+    }
+  }
+  
+  .lecturer-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  
+    ion-card {
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      background: white;
+  
+      ion-card-title {
+        color: var(--ion-color-primary);
+      }
+  
+      ion-card-subtitle {
+        color: var(--ion-color-medium);
+      }
+  
+      ion-button {
+        margin-top: 10px;
+      }
+    }
+  }
+  

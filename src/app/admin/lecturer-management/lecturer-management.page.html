@@ -1,13 +1,36 @@
-<ion-header [translucent]="true">
+<ion-header class="lecturer-header">
   <ion-toolbar>
-    <ion-title>lecturer-management</ion-title>
+    <ion-title>Lecturer Management</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">lecturer-management</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="lecturer-page ion-padding">
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="text-content">
+      <h2>Manage Lecturers</h2>
+      <p>Easily view, assign and edit lecturer records.</p>
+      <ion-button color="tertiary" shape="round" (click)="openAddLecturer()">+ Add / Assign Lecturer</ion-button>
+    </div>
+    <div class="graphic-elements">
+      <div class="triangle-orange"></div>
+      <div class="triangle-blue"></div>
+    </div>
+  </div>
+
+  <!-- Lecturer List -->
+  <div class="lecturer-list">
+    <ion-card *ngFor="let lecturer of lecturers">
+      <ion-card-header>
+        <ion-card-title>{{ lecturer.name }}</ion-card-title>
+        <ion-card-subtitle>{{ lecturer.email }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Subject:</strong> {{ lecturer.subject }}</p>
+        <ion-button fill="outline" color="secondary" size="small" shape="round" (click)="editLecturer(lecturer)">
+          Edit
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

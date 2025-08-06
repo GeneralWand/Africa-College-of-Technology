@@ -35,3 +35,20 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+
+:root {
+  /* Primary Colors */
+  --ion-color-primary: #0071CE;       // Blue (Primary Brand Color)
+  --ion-color-secondary: #00B5E2;     // Light Blue
+  --ion-color-tertiary: #FFD700;      // Gold (Accent)
+
+  /* Utility Colors */
+  --ion-color-danger: #C8102E;        // Red (Error/Danger)
+  --ion-color-light: #F2F2F2;         // Light Gray (Backgrounds)
+
+  /* Optional: Semantic Naming */
+  --ion-color-brand-blue: #0071CE;
+  --ion-color-brand-red: #C8102E;
+  --ion-color-brand-gold: #FFD700;
+}

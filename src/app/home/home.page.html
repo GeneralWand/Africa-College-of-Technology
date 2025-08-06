@@ -1,20 +1,237 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<!-- home.page.html -->
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="header-content">
+      <div class="logo-section">
+        <div class="main-logo">
+          <h2>Africa College of Technology</h2>
+          <p>Professional Certification Platform</p>
+        </div>
+        <div class="focus-badge">
+          <div class="focus-icon">
+            <ion-icon name="school-outline"></ion-icon>
+          </div>
+          <span>FOCUS PLATFORM</span>
+          <small>Empowering Success</small>
+        </div>
+      </div>
+      
+      <div class="header-text">
+        <h1>CERTIFICATION</h1>
+        <h1 class="year-text">2025</h1>
+        <h2>PRACTICE PLATFORM</h2>
+      </div>
+    </div>
+    
+    <!-- Geometric Design Elements -->
+    <div class="geometric-overlay">
+      <div class="triangle-orange"></div>
+      <div class="triangle-blue"></div>
+    </div>
+  </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <!-- Navigation Section -->
+  <div class="nav-section">
+    <ion-segment value="home" class="custom-segment">
+      <ion-segment-button value="home">
+        <ion-label>Home</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="certifications">
+        <ion-label>Certifications</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="about">
+        <ion-label>About</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="contact">
+        <ion-label>Contact</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <div class="hero-content">
+        <h2>Professional Certification Success Starts Here</h2>
+        <p>Comprehensive practice platform for IT certifications including CompTIA, AWS, Cisco, and more.</p>
+        
+        <div class="cta-buttons">
+          <ion-button expand="block" color="primary" class="primary-btn">
+            <ion-icon name="person-add-outline" slot="start"></ion-icon>
+            Request Access
+          </ion-button>
+          <ion-button expand="block" fill="outline" color="primary" class="secondary-btn">
+            <ion-icon name="school-outline" slot="start"></ion-icon>
+            Lecturer Portal
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="features-section">
+      <div class="section-header">
+        <h3>Platform Features</h3>
+        <p>Everything you need for certification success</p>
+      </div>
+      
+      <div class="features-grid">
+        <ion-card class="feature-card">
+          <ion-card-content>
+            <div class="feature-icon">
+              <ion-icon name="library-outline" color="primary"></ion-icon>
+            </div>
+            <h4>Comprehensive Question Banks</h4>
+            <p>Extensive collections of practice questions aligned with certification objectives</p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="feature-card">
+          <ion-card-content>
+            <div class="feature-icon">
+              <ion-icon name="analytics-outline" color="secondary"></ion-icon>
+            </div>
+            <h4>Performance Analytics</h4>
+            <p>Track your progress with detailed analytics and identify areas for improvement</p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="feature-card">
+          <ion-card-content>
+            <div class="feature-icon">
+              <ion-icon name="time-outline" color="tertiary"></ion-icon>
+            </div>
+            <h4>Timed Practice</h4>
+            <p>Simulate real exam conditions with timed quizzes and practice sessions</p>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="feature-card">
+          <ion-card-content>
+            <div class="feature-icon">
+              <ion-icon name="people-outline" color="primary"></ion-icon>
+            </div>
+            <h4>Class Management</h4>
+            <p>Lecturers can manage classes, assign quizzes, and monitor student progress</p>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+
+    <!-- User Types Section -->
+    <div class="user-types-section">
+      <div class="section-header">
+        <h3>Choose Your Path</h3>
+        <p>Different access levels for different needs</p>
+      </div>
+      
+      <div class="user-cards">
+        <ion-card class="user-card student-card">
+          <ion-card-header>
+            <div class="user-icon">
+              <ion-icon name="person-outline"></ion-icon>
+            </div>
+            <ion-card-title>Independent Student</ion-card-title>
+            <ion-card-subtitle>Self-paced Learning</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ul>
+              <li>Access to practice questions</li>
+              <li>Performance tracking</li>
+              <li>Timed quizzes</li>
+              <li>Progress analytics</li>
+            </ul>
+            <ion-button expand="block" fill="outline" color="primary">
+              Request Access
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="user-card lecturer-card">
+          <ion-card-header>
+            <div class="user-icon">
+              <ion-icon name="school-outline"></ion-icon>
+            </div>
+            <ion-card-title>Lecturer</ion-card-title>
+            <ion-card-subtitle>Class Management</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ul>
+              <li>Manage assigned classes</li>
+              <li>Create and assign quizzes</li>
+              <li>Monitor student progress</li>
+              <li>Generate reports</li>
+            </ul>
+            <ion-button expand="block" fill="outline" color="secondary">
+              Lecturer Portal
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+
+    <!-- Certifications Section -->
+    <div class="certifications-section">
+      <div class="section-header">
+        <h3>Supported Certifications</h3>
+        <p>Practice for industry-leading certifications</p>
+      </div>
+      
+      <div class="cert-grid">
+        <div class="cert-item">
+          <ion-chip color="primary">
+            <ion-label>CompTIA A+</ion-label>
+          </ion-chip>
+        </div>
+        <div class="cert-item">
+          <ion-chip color="secondary">
+            <ion-label>CompTIA Network+</ion-label>
+          </ion-chip>
+        </div>
+        <div class="cert-item">
+          <ion-chip color="tertiary">
+            <ion-label>CompTIA Security+</ion-label>
+          </ion-chip>
+        </div>
+        <div class="cert-item">
+          <ion-chip color="primary">
+            <ion-label>AWS Solutions Architect</ion-label>
+          </ion-chip>
+        </div>
+        <div class="cert-item">
+          <ion-chip color="secondary">
+            <ion-label>CCNA</ion-label>
+          </ion-chip>
+        </div>
+        <div class="cert-item">
+          <ion-chip color="tertiary">
+            <ion-label>PMP</ion-label>
+          </ion-chip>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer-section">
+    <div class="footer-content">
+      <div class="footer-info">
+        <h4>Africa College of Technology</h4>
+        <p>Professional Certification Practice Platform</p>
+        <p>Empowering success through structured learning</p>
+      </div>
+      <div class="footer-links">
+        <ion-button fill="clear" size="small">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          Contact Support
+        </ion-button>
+        <ion-button fill="clear" size="small">
+          <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+          Help Center
+        </ion-button>
+      </div>
+    </div>
   </div>
 </ion-content>

@@ -1,0 +1,480 @@
+<!-- student-management.page.html -->
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Student Management</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="showAddStudentModal = true">
+        <ion-icon name="person-add-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Stats Cards -->
+  <div class="stats-section">
+    <div class="stats-grid">
+      <ion-card class="stat-card">
+        <ion-card-content>
+          <div class="stat-content">
+            <ion-icon name="people-outline" color="primary"></ion-icon>
+            <div class="stat-text">
+              <h2>{{getTotalStudents()}}</h2>
+              <p>Total Students</p>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="stat-card">
+        <ion-card-content>
+          <div class="stat-content">
+            <ion-icon name="checkmark-circle-outline" color="success"></ion-icon>
+            <div class="stat-text">
+              <h2>{{getActiveStudents()}}</h2>
+              <p>Active Students</p>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="stat-card">
+        <ion-card-content>
+          <div class="stat-content">
+            <ion-icon name="school-outline" color="secondary"></ion-icon>
+            <div class="stat-text">
+              <h2>{{getTotalClasses()}}</h2>
+              <p>Active Classes</p>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="stat-card">
+        <ion-card-content>
+          <div class="stat-content">
+            <ion-icon name="cash-outline" color="tertiary"></ion-icon>
+            <div class="stat-text">
+              <h2>R{{getTotalRevenue()}}</h2>
+              <p>Monthly Revenue</p>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-section">
+    <div class="action-buttons">
+      <ion-button expand="block" fill="outline" color="primary" (click)="showBulkUploadModal = true">
+        <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
+        Bulk Upload CSV
+      </ion-button>
+      
+      <ion-button expand="block" fill="outline" color="secondary" (click)="exportStudentData()">
+        <ion-icon name="download-outline" slot="start"></ion-icon>
+        Export Data
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- Filters and Search -->
+  <div class="filter-section">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="4">
+          <ion-searchbar 
+            [(ngModel)]="searchTerm" 
+            (ionInput)="filterStudents()"
+            placeholder="Search students..."
+            show-clear-button="focus">
+          </ion-searchbar>
+        </ion-col>
+        
+        <ion-col size="6" size-md="3">
+          <ion-select 
+            [(ngModel)]="selectedClass" 
+            (selectionChange)="filterStudents()"
+            placeholder="Filter by Class"
+            interface="popover">
+            <ion-select-option value="">All Classes</ion-select-option>
+            <ion-select-option *ngFor="let class of classes" [value]="class.id">
+              {{class.name}}
+            </ion-select-option>
+          </ion-select>
+        </ion-col>
+        
+        <ion-col size="6" size-md="3">
+          <ion-select 
+            [(ngModel)]="selectedStatus" 
+            (selectionChange)="filterStudents()"
+            placeholder="Filter by Status"
+            interface="popover">
+            <ion-select-option value="">All Status</ion-select-option>
+            <ion-select-option value="active">Active</ion-select-option>
+            <ion-select-option value="inactive">Inactive</ion-select-option>
+            <ion-select-option value="pending">Pending</ion-select-option>
+          </ion-select>
+        </ion-col>
+        
+        <ion-col size="12" size-md="2">
+          <ion-button expand="block" fill="clear" (click)="clearFilters()">
+            <ion-icon name="refresh-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- Students Table -->
+  <div class="table-section">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Student List ({{filteredStudents.length}})</ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <div class="table-container">
+          <table class="students-table">
+            <thead>
+              <tr>
+                <th>
+                  <ion-checkbox 
+                    [(ngModel)]="selectAll" 
+                    (ionChange)="toggleSelectAll()">
+                  </ion-checkbox>
+                </th>
+                <th>Student</th>
+                <th>Class</th>
+                <th>Lecturer</th>
+                <th>Status</th>
+                <th>Enrolled</th>
+                <th>Last Login</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of paginatedStudents" 
+                  [class.selected]="selectedStudents.includes(student.id)">
+                <td>
+                  <ion-checkbox 
+                    [(ngModel)]="student.selected"
+                    (ionChange)="onStudentSelect(student)">
+                  </ion-checkbox>
+                </td>
+                <td>
+                  <div class="student-info">
+                    <div class="student-avatar">
+                      <ion-icon name="person-circle-outline"></ion-icon>
+                    </div>
+                    <div class="student-details">
+                      <strong>{{student.firstName}} {{student.lastName}}</strong>
+                      <small>{{student.email}}</small>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <ion-chip [color]="getClassColor(student.classId)" outline>
+                    <ion-label>{{getClassName(student.classId)}}</ion-label>
+                  </ion-chip>
+                </td>
+                <td>{{getLecturerName(student.classId)}}</td>
+                <td>
+                  <ion-badge [color]="getStatusColor(student.status)">
+                    {{student.status | titlecase}}
+                  </ion-badge>
+                </td>
+                <td>{{student.enrolledDate | date:'MMM dd, yyyy'}}</td>
+                <td>
+                  <span [class]="getLastLoginClass(student.lastLogin)">
+                    {{student.lastLogin | date:'MMM dd, yyyy'}}
+                  </span>
+                </td>
+                <td>
+                  <div class="action-buttons">
+                    <ion-button 
+                      fill="clear" 
+                      size="small" 
+                      (click)="viewStudent(student)">
+                      <ion-icon name="eye-outline" slot="icon-only"></ion-icon>
+                    </ion-button>
+                    <ion-button 
+                      fill="clear" 
+                      size="small" 
+                      (click)="editStudent(student)">
+                      <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+                    </ion-button>
+                    <ion-button 
+                      fill="clear" 
+                      size="small" 
+                      color="medium"
+                      (click)="resetPassword(student)">
+                      <ion-icon name="key-outline" slot="icon-only"></ion-icon>
+                    </ion-button>
+                    <ion-button 
+                      fill="clear" 
+                      size="small" 
+                      [color]="student.status === 'active' ? 'warning' : 'success'"
+                      (click)="toggleStudentStatus(student)">
+                      <ion-icon [name]="student.status === 'active' ? 'pause-outline' : 'play-outline'" slot="icon-only"></ion-icon>
+                    </ion-button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination-section" *ngIf="filteredStudents.length > itemsPerPage">
+          <ion-grid>
+            <ion-row class="ion-align-items-center">
+              <ion-col size="12" size-md="6">
+                <p class="pagination-info">
+                  Showing {{(currentPage - 1) * itemsPerPage + 1}} to {{Math.min(currentPage * itemsPerPage, filteredStudents.length)}} 
+                  of {{filteredStudents.length}} students
+                </p>
+              </ion-col>
+              <ion-col size="12" size-md="6" class="ion-text-end">
+                <ion-button 
+                  fill="clear" 
+                  [disabled]="currentPage === 1"
+                  (click)="previousPage()">
+                  <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+                
+                <span class="page-numbers">
+                  <ion-button 
+                    *ngFor="let page of getPageNumbers()" 
+                    fill="clear"
+                    [color]="page === currentPage ? 'primary' : 'medium'"
+                    (click)="goToPage(page)">
+                    {{page}}
+                  </ion-button>
+                </span>
+                
+                <ion-button 
+                  fill="clear" 
+                  [disabled]="currentPage === getTotalPages()"
+                  (click)="nextPage()">
+                  <ion-icon name="chevron-forward-outline" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Bulk Actions -->
+  <div class="bulk-actions" *ngIf="selectedStudents.length > 0">
+    <ion-card>
+      <ion-card-content>
+        <div class="bulk-actions-content">
+          <span>{{selectedStudents.length}} student(s) selected</span>
+          <div class="bulk-buttons">
+            <ion-button size="small" fill="outline" color="primary" (click)="bulkEmailCredentials()">
+              <ion-icon name="mail-outline" slot="start"></ion-icon>
+              Email Credentials
+            </ion-button>
+            <ion-button size="small" fill="outline" color="warning" (click)="bulkDeactivate()">
+              <ion-icon name="pause-outline" slot="start"></ion-icon>
+              Deactivate
+            </ion-button>
+            <ion-button size="small" fill="outline" color="success" (click)="bulkActivate()">
+              <ion-icon name="play-outline" slot="start"></ion-icon>
+              Activate
+            </ion-button>
+            <ion-button size="small" fill="outline" color="danger" (click)="bulkDelete()">
+              <ion-icon name="trash-outline" slot="start"></ion-icon>
+              Remove
+            </ion-button>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+
+<!-- Add Student Modal -->
+<ion-modal [isOpen]="showAddStudentModal" (didDismiss)="showAddStudentModal = false">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Add New Student</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="showAddStudentModal = false">
+            <ion-icon name="close" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    
+    <ion-content>
+      <form #addStudentForm="ngForm" (ngSubmit)="addStudent()">
+        <div class="form-content">
+          <ion-item>
+            <ion-label position="stacked">First Name *</ion-label>
+            <ion-input 
+              [(ngModel)]="newStudent.firstName" 
+              name="firstName" 
+              required>
+            </ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-label position="stacked">Last Name *</ion-label>
+            <ion-input 
+              [(ngModel)]="newStudent.lastName" 
+              name="lastName" 
+              required>
+            </ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-label position="stacked">Email *</ion-label>
+            <ion-input 
+              [(ngModel)]="newStudent.email" 
+              name="email" 
+              type="email" 
+              required>
+            </ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-label position="stacked">Phone Number</ion-label>
+            <ion-input 
+              [(ngModel)]="newStudent.phone" 
+              name="phone" 
+              type="tel">
+            </ion-input>
+          </ion-item>
+          
+          <ion-item>
+            <ion-label position="stacked">Select Class *</ion-label>
+            <ion-select 
+              [(ngModel)]="newStudent.classId" 
+              name="classId" 
+              required>
+              <ion-select-option *ngFor="let class of classes" [value]="class.id">
+                {{class.name}} ({{class.certification}})
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          
+          <ion-item>
+            <ion-checkbox [(ngModel)]="newStudent.sendCredentials" name="sendCredentials"></ion-checkbox>
+            <ion-label class="ion-margin-start">Email login credentials to student</ion-label>
+          </ion-item>
+          
+          <div class="form-buttons">
+            <ion-button 
+              expand="block" 
+              type="submit" 
+              [disabled]="!addStudentForm.form.valid">
+              Add Student
+            </ion-button>
+          </div>
+        </div>
+      </form>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- Bulk Upload Modal -->
+<ion-modal [isOpen]="showBulkUploadModal" (didDismiss)="showBulkUploadModal = false">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Bulk Upload Students</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="showBulkUploadModal = false">
+            <ion-icon name="close" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    
+    <ion-content>
+      <div class="upload-content">
+        <div class="upload-instructions">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>CSV Upload Instructions</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p>Please ensure your CSV file has the following columns:</p>
+              <ul>
+                <li><strong>firstName</strong> - Student's first name</li>
+                <li><strong>lastName</strong> - Student's last name</li>
+                <li><strong>email</strong> - Student's email address</li>
+                <li><strong>phone</strong> - Student's phone number (optional)</li>
+                <li><strong>classId</strong> - Class ID to assign student to</li>
+              </ul>
+              
+              <ion-button fill="outline" size="small" (click)="downloadTemplate()">
+                <ion-icon name="download-outline" slot="start"></ion-icon>
+                Download Template
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </div>
+        
+        <div class="upload-area">
+          <ion-card>
+            <ion-card-content>
+              <div class="file-upload" (click)="fileInput.click()">
+                <input 
+                  #fileInput 
+                  type="file" 
+                  accept=".csv" 
+                  (change)="onFileSelected($event)" 
+                  style="display: none;">
+                
+                <div class="upload-icon">
+                  <ion-icon name="cloud-upload-outline" size="large" color="primary"></ion-icon>
+                </div>
+                <h3>Upload CSV File</h3>
+                <p>Click here to select your CSV file or drag and drop</p>
+                
+                <div *ngIf="selectedFile" class="selected-file">
+                  <ion-chip color="primary">
+                    <ion-icon name="document-outline" slot="start"></ion-icon>
+                    <ion-label>{{selectedFile.name}}</ion-label>
+                  </ion-chip>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </div>
+        
+        <div class="upload-options">
+          <ion-item>
+            <ion-label position="stacked">Assign to Class</ion-label>
+            <ion-select [(ngModel)]="bulkUploadClassId" placeholder="Select Class">
+              <ion-select-option *ngFor="let class of classes" [value]="class.id">
+                {{class.name}} ({{class.certification}})
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          
+          <ion-item>
+            <ion-checkbox [(ngModel)]="emailCredentialsAfterUpload"></ion-checkbox>
+            <ion-label class="ion-margin-start">Email login credentials to all uploaded students</ion-label>
+          </ion-item>
+          
+          <ion-button 
+            expand="block" 
+            color="primary" 
+            [disabled]="!selectedFile"
+            (click)="processBulkUpload()">
+            <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
+            Upload Students
+          </ion-button>
+        </div>
+      </div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

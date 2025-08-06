@@ -1,0 +1,795 @@
+// student-management.page.scss
+
+:root {
+  --ion-color-primary: #0071CE;
+  --ion-color-secondary: #00B5E2;
+  --ion-color-tertiary: #FFD700;
+  --ion-color-danger: #C8102E;
+  --ion-color-light: #F2F2F2;
+  --ion-color-dark: #222428;
+  --ion-color-medium: #92949C;
+}
+
+ion-content {
+  --background: #f8f9fa;
+}
+
+// Stats Section
+.stats-section {
+  padding: 20px;
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+    
+    .stat-card {
+      --background: white;
+      margin: 0;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      }
+      
+      ion-card-content {
+        padding: 20px;
+        
+        .stat-content {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          
+          ion-icon {
+            font-size: 2.5rem;
+            background: rgba(0, 113, 206, 0.1);
+            padding: 12px;
+            border-radius: 12px;
+          }
+          
+          .stat-text {
+            h2 {
+              margin: 0;
+              font-size: 2rem;
+              font-weight: bold;
+              color: var(--ion-color-primary);
+            }
+            
+            p {
+              margin: 5px 0 0 0;
+              color: var(--ion-color-medium);
+              font-size: 0.9rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Action Section
+.action-section {
+  padding: 0 20px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  .action-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    
+    ion-button {
+      --border-radius: 8px;
+      height: 45px;
+      font-weight: 500;
+    }
+  }
+}
+
+// Filter Section
+.filter-section {
+  padding: 20px;
+  background: white;
+  border-bottom: 1px solid var(--ion-color-light);
+  
+  ion-searchbar {
+    --background: var(--ion-color-light);
+    --border-radius: 8px;
+  }
+  
+  ion-select {
+    --padding-start: 15px;
+    border: 1px solid var(--ion-color-light);
+    border-radius: 8px;
+  }
+}
+
+// Table Section
+.table-section {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  ion-card {
+    --background: white;
+    margin: 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    
+    ion-card-header {
+      border-bottom: 1px solid var(--ion-color-light);
+      
+      ion-card-title {
+        color: var(--ion-color-primary);
+        font-size: 1.3rem;
+        font-weight: 600;
+      }
+    }
+  }
+  
+  .table-container {
+    overflow-x: auto;
+    
+    .students-table {
+      width: 100%;
+      border-collapse: collapse;
+      
+      th {
+        background: var(--ion-color-light);
+        padding: 15px 10px;
+        text-align: left;
+        font-weight: 600;
+        color: var(--ion-color-primary);
+        border-bottom: 2px solid var(--ion-color-primary);
+        white-space: nowrap;
+        
+        &:first-child {
+          border-radius: 8px 0 0 0;
+        }
+        
+        &:last-child {
+          border-radius: 0 8px 0 0;
+        }
+      }
+      
+      td {
+        padding: 15px 10px;
+        border-bottom: 1px solid #eee;
+        vertical-align: middle;
+        
+        .student-info {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          
+          .student-avatar {
+            ion-icon {
+              font-size: 2.2rem;
+              color: var(--ion-color-medium);
+            }
+          }
+          
+          .student-details {
+            display: flex;
+            flex-direction: column;
+            
+            strong {
+              color: var(--ion-color-dark);
+              font-weight: 600;
+            }
+            
+            small {
+              color: var(--ion-color-medium);
+              font-size: 0.85rem;
+            }
+          }
+        }
+        
+        .action-buttons {
+          display: flex;
+          gap: 5px;
+          
+          ion-button {
+            --padding-start: 8px;
+            --padding-end: 8px;
+            min-width: 32px;
+            height: 32px;
+            
+            ion-icon {
+              font-size: 1.1rem;
+            }
+          }
+        }
+      }
+      
+      tr {
+        &:hover {
+          background-color: rgba(0, 113, 206, 0.04);
+        }
+        
+        &.selected {
+          background-color: rgba(0, 113, 206, 0.08);
+        }
+      }
+    }
+  }
+}
+
+// Login Status Classes
+.recent-login {
+  color: var(--ion-color-success);
+  font-weight: 500;
+}
+
+.medium-login {
+  color: var(--ion-color-warning);
+}
+
+.old-login {
+  color: var(--ion-color-danger);
+}
+
+.never-logged {
+  color: var(--ion-color-medium);
+  font-style: italic;
+}
+
+// Pagination
+.pagination-section {
+  margin-top: 20px;
+  padding: 15px 0;
+  border-top: 1px solid var(--ion-color-light);
+  
+  .pagination-info {
+    margin: 0;
+    color: var(--ion-color-medium);
+    font-size: 0.9rem;
+  }
+  
+  .page-numbers {
+    display: inline-flex;
+    gap: 5px;
+    margin: 0 10px;
+    
+    ion-button {
+      min-width: 36px;
+      height: 36px;
+      --padding-start: 8px;
+      --padding-end: 8px;
+    }
+  }
+}
+
+// Bulk Actions
+.bulk-actions {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 1000;
+  
+  ion-card {
+    --background: white;
+    margin: 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    
+    .bulk-actions-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+      
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+      
+      span {
+        font-weight: 600;
+        color: var(--ion-color-primary);
+      }
+      
+      .bulk-buttons {
+        display: flex;
+        gap: 10px;
+        
+        @media (max-width: 768px) {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        
+        ion-button {
+          --border-radius: 6px;
+          height: 36px;
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+}
+
+// Modal Styles
+ion-modal {
+  .form-content {
+    padding: 20px;
+    
+    ion-item {
+      --border-radius: 8px;
+      --background: var(--ion-color-light);
+      margin-bottom: 15px;
+      
+      ion-label {
+        font-weight: 500;
+        color: var(--ion-color-primary);
+      }
+    }
+    
+    .form-buttons {
+      margin-top: 30px;
+      
+      ion-button {
+        --border-radius: 8px;
+        height: 50px;
+        font-weight: 600;
+      }
+    }
+  }
+  
+  // Upload Modal
+  .upload-content {
+    padding: 20px;
+    
+    .upload-instructions {
+      margin-bottom: 30px;
+      
+      ul {
+        margin: 15px 0;
+        padding-left: 20px;
+        
+        li {
+          margin-bottom: 8px;
+          color: var(--ion-color-medium);
+        }
+      }
+    }
+    
+    .upload-area {
+      margin-bottom: 30px;
+      
+      .file-upload {
+        text-align: center;
+        padding: 40px 20px;
+        border: 2px dashed var(--ion-color-medium);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          border-color: var(--ion-color-primary);
+          background-color: rgba(0, 113, 206, 0.04);
+        }
+        
+        .upload-icon {
+          margin-bottom: 15px;
+        }
+        
+        h3 {
+          margin: 0 0 10px 0;
+          color: var(--ion-color-primary);
+        }
+        
+        p {
+          margin: 0;
+          color: var(--ion-color-medium);
+        }
+        
+        .selected-file {
+          margin-top: 15px;
+        }
+      }
+    }
+    
+    .upload-options {
+      ion-item {
+        --border-radius: 8px;
+        --background: var(--ion-color-light);
+        margin-bottom: 15px;
+      }
+      
+      ion-button {
+        --border-radius: 8px;
+        height: 50px;
+        font-weight: 600;
+        margin-top: 20px;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .stats-section .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-section .action-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .filter-section ion-grid ion-row ion-col {
+    margin-bottom: 10px;
+  }
+  
+  .table-section {
+    padding: 10px;
+    
+    .table-container {
+      .students-table {
+        font-size: 0.85rem;
+        
+        th, td {
+          padding: 10px 8px;
+        }
+        
+        .student-info {
+          .student-details {
+            strong {
+              font-size: 0.9rem;
+            }
+            
+            small {
+              font-size: 0.75rem;
+            }
+          }
+        }
+        
+        .action-buttons {
+          flex-wrap: wrap;
+          gap: 3px;
+          
+          ion-button {
+            min-width: 28px;
+            height: 28px;
+            
+            ion-icon {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+  ion-content {
+    --background: #121212;
+  }
+  
+  .stats-section .stats-grid .stat-card {
+    --background: #1e1e1e;
+  }
+  
+  .filter-section {
+    background: #1e1e1e;
+    border-bottom-color: #333;
+  }
+  
+  .table-section ion-card {
+    --background: #1e1e1e;
+    
+    .students-table {
+      th {
+        background: #333;
+        color: var(--ion-color-secondary);
+        border-bottom-color: var(--ion-color-secondary);
+      }
+      
+      td {
+        border-bottom-color: #333;
+        
+        .student-info .student-details {
+          strong {
+            color: #fff;
+          }
+          
+          small {
+            color: #aaa;
+          }
+        }
+      }
+      
+      tr:hover {
+        background-color: rgba(0, 181, 226, 0.08);
+      }
+      
+      tr.selected {
+        background-color: rgba(0, 181, 226, 0.15);
+      }
+    }
+  }
+  
+  .pagination-section {
+    border-top-color: #333;
+  }
+  
+  .bulk-actions ion-card {
+    --background: #1e1e1e;
+  }
+}
+
+// Custom Animations
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.stats-section .stat-card {
+  animation: fadeInUp 0.6s ease-out;
+  
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+  &:nth-child(4) { animation-delay: 0.4s; }
+}
+
+.table-section {
+  animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+
+.bulk-actions {
+  animation: slideInRight 0.4s ease-out;
+}
+
+// Loading States
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// Custom Ion Components
+ion-chip {
+  --border-radius: 16px;
+  --color: var(--ion-color-primary);
+  font-weight: 500;
+  
+  &[color="primary"] {
+    --background: rgba(0, 113, 206, 0.1);
+    --color: var(--ion-color-primary);
+  }
+  
+  &[color="secondary"] {
+    --background: rgba(0, 181, 226, 0.1);
+    --color: var(--ion-color-secondary);
+  }
+  
+  &[color="tertiary"] {
+    --background: rgba(255, 215, 0, 0.1);
+    --color: var(--ion-color-tertiary);
+  }
+}
+
+ion-badge {
+  --border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  
+  &[color="success"] {
+    --background: #10dc60;
+    --color: white;
+  }
+  
+  &[color="warning"] {
+    --background: #ffce00;
+    --color: #333;
+  }
+  
+  &[color="danger"] {
+    --background: var(--ion-color-danger);
+    --color: white;
+  }
+}
+
+ion-searchbar {
+  --icon-color: var(--ion-color-primary);
+  --clear-button-color: var(--ion-color-primary);
+  
+  .searchbar-input {
+    font-weight: 500;
+  }
+}
+
+ion-select {
+  --placeholder-color: var(--ion-color-medium);
+  font-weight: 500;
+}
+
+// Print Styles
+@media print {
+  .action-section,
+  .filter-section,
+  .bulk-actions,
+  .pagination-section {
+    display: none !important;
+  }
+  
+  .stats-section {
+    page-break-inside: avoid;
+  }
+  
+  .table-section {
+    .students-table {
+      th, td {
+        padding: 8px 6px;
+        font-size: 0.8rem;
+      }
+      
+      .action-buttons {
+        display: none;
+      }
+    }
+  }
+  
+  ion-card {
+    box-shadow: none !important;
+    border: 1px solid #ccc;
+  }
+}
+
+// Accessibility Improvements
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Focus States
+ion-button:focus-visible {
+  outline: 2px solid var(--ion-color-primary);
+  outline-offset: 2px;
+}
+
+ion-checkbox:focus-visible,
+ion-select:focus-visible,
+ion-searchbar:focus-visible {
+  outline: 2px solid var(--ion-color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+// High Contrast Mode Support
+@media (prefers-contrast: high) {
+  .stats-section .stat-card {
+    border: 2px solid var(--ion-color-primary);
+  }
+  
+  .table-section .students-table {
+    th {
+      border: 2px solid var(--ion-color-primary);
+    }
+    
+    td {
+      border: 1px solid var(--ion-color-medium);
+    }
+  }
+  
+  ion-chip,
+  ion-badge {
+    border: 1px solid currentColor;
+  }
+}
+
+// Error States
+.form-error {
+  color: var(--ion-color-danger);
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: block;
+}
+
+.field-error {
+  --border-color: var(--ion-color-danger);
+  --highlight-color-focused: var(--ion-color-danger);
+}
+
+// Success States
+.form-success {
+  color: var(--ion-color-success);
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: block;
+}
+
+// Custom Scrollbar
+.table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: var(--ion-color-light);
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: var(--ion-color-medium);
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: var(--ion-color-primary);
+}
+
+// Tooltip-like elements
+.tooltip {
+  position: relative;
+  
+  &:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ion-color-dark);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

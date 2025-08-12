@@ -99,6 +99,7 @@ export class LecturerManagementPage implements OnInit {
     }
   });
 }
+
 viewProfile(lecturer: Lecturer | LecturerRequest) {
     console.log('Viewing profile for:', lecturer);
     if (!lecturer.id) {

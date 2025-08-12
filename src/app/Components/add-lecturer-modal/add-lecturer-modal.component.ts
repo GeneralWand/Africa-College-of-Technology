@@ -16,6 +16,8 @@ export class AddLecturerModalComponent {
   availableClasses: string[] = ['Class A', 'Class B', 'Class C', 'Class D'];
   selectedClasses: string[] = [];
   isSubmitting = false;
+  generatedUsername: string = '';
+  generatedPassword: string = '';
 
   constructor(
     private modalCtrl: ModalController,
@@ -24,7 +26,9 @@ export class AddLecturerModalComponent {
     this.lecturerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)]]
+      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)]],
+      sendCredentials: [true]
+      
     });
   }
 
@@ -36,6 +40,13 @@ export class AddLecturerModalComponent {
       this.selectedClasses.push(className);
     }
   }
+
+  updateCredentials() {
+    const email = this.lecturerForm.get('email')?.value || '';
+    this.generatedUsername = email ? email.split('@')[0] : '';
+    this.generatedPassword = this.generatePassword();
+  }
+  
 
   dismiss() {
     this.modalCtrl.dismiss();
@@ -72,4 +83,5 @@ export class AddLecturerModalComponent {
   private generatePassword(): string {
     return Math.random().toString(36).slice(-8);
   }
+  
 }

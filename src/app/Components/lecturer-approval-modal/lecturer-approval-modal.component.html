@@ -1,5 +1,5 @@
-<ion-header>
-  <ion-toolbar color="primary">
+<ion-header class="modal-header">
+  <ion-toolbar>
     <ion-title>Approve Lecturer</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
@@ -9,31 +9,34 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <form [formGroup]="approvalForm">
+<ion-content class="modal-content ion-padding">
+  <form [formGroup]="approvalForm" class="rounded-form">
+    <!-- Basic Info -->
     <ion-list>
-      <ion-item>
+      <ion-item class="form-item animate__animated animate__fadeIn">
         <ion-label position="stacked">Name</ion-label>
         <ion-input formControlName="name"></ion-input>
       </ion-item>
       
-      <ion-item>
+      <ion-item class="form-item animate__animated animate__fadeIn">
         <ion-label position="stacked">Email</ion-label>
         <ion-input formControlName="email" type="email"></ion-input>
       </ion-item>
       
-      <ion-item>
+      <ion-item class="form-item animate__animated animate__fadeIn">
         <ion-label position="stacked">Phone</ion-label>
         <ion-input formControlName="phone" type="tel"></ion-input>
       </ion-item>
     </ion-list>
 
-    <ion-list-header>
+    <!-- Assign Classes -->
+    <ion-list-header class="list-header animate__animated animate__fadeIn">
       <ion-label>Assign Classes</ion-label>
     </ion-list-header>
     
     <ion-list>
       <ion-item *ngFor="let className of availableClasses" 
+                class="class-item animate__animated animate__fadeInUp"
                 (click)="toggleClassSelection(className)"
                 [class.selected]="selectedClasses.includes(className)">
         <ion-label>{{ className }}</ion-label>
@@ -44,28 +47,30 @@
       </ion-item>
     </ion-list>
 
-    <ion-card class="credentials-card">
+    <!-- Credentials Card -->
+    <ion-card class="credentials-card animate__animated animate__fadeInUp">
       <ion-card-header>
         <ion-card-title>Login Credentials</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Username:</ion-label>
           <ion-text>{{ generatedCredentials.username }}</ion-text>
         </ion-item>
-        <ion-item>
+        <ion-item lines="none">
           <ion-label>Password:</ion-label>
           <ion-text>{{ generatedCredentials.password }}</ion-text>
         </ion-item>
-        <ion-button fill="clear" (click)="generateCredentials()">
+        <ion-button fill="clear" color="tertiary" (click)="generateCredentials()">
           <ion-icon slot="start" name="refresh"></ion-icon>
           Regenerate
         </ion-button>
       </ion-card-content>
     </ion-card>
 
+    <!-- Approve Button -->
     <ion-button expand="block" 
-                color="primary"
+                class="submit-button ion-margin-top yellow-button"
                 (click)="approveLecturer()"
                 [disabled]="!approvalForm.valid || selectedClasses.length === 0">
       Approve & Send Credentials

@@ -78,6 +78,7 @@ ion-card.lecturer-item {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   background: white;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
 }
 
 ion-card.lecturer-item:hover {
@@ -87,6 +88,7 @@ ion-card.lecturer-item:hover {
 
 ion-card-title {
   color: var(--ion-color-primary);
+  margin-top: 5px;
 }
 
 ion-card-subtitle {
@@ -102,6 +104,25 @@ ion-badge {
   display: flex;
   gap: 8px;
   margin-top: 12px;
+  justify-content: center;
+}
+
+/* Profile Icon Above Name */
+.lecturer-avatar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.lecturer-avatar-icon {
+  font-size: 64px;
+  color: var(--ion-color-primary);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.lecturer-avatar-icon:hover {
+  transform: scale(1.1);
+  color: var(--ion-color-tertiary);
 }
 
 .loading-container {

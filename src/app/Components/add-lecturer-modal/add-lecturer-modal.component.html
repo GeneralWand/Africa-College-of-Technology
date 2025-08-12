@@ -1,8 +1,5 @@
-<p>
-  add-lecturer-modal works!
-</p>
-<ion-header>
-  <ion-toolbar color="primary">
+<ion-header class="modal-header">
+  <ion-toolbar>
     <ion-title>Add New Lecturer</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="dismiss()">
@@ -12,9 +9,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="modal-content ion-padding">
   <form [formGroup]="lecturerForm" (ngSubmit)="submit()">
-    <ion-item class="ion-margin-bottom animate__animated animate__fadeIn">
+    <!-- Full Name -->
+    <ion-item class="form-item animate__animated animate__fadeIn">
       <ion-label position="floating">Full Name</ion-label>
       <ion-input formControlName="name" type="text"></ion-input>
     </ion-item>
@@ -23,7 +21,8 @@
       Please enter a valid name (at least 3 characters)
     </div>
 
-    <ion-item class="ion-margin-bottom animate__animated animate__fadeIn">
+    <!-- Email -->
+    <ion-item class="form-item animate__animated animate__fadeIn">
       <ion-label position="floating">Email</ion-label>
       <ion-input formControlName="email" type="email"></ion-input>
     </ion-item>
@@ -32,7 +31,8 @@
       Please enter a valid email address
     </div>
 
-    <ion-item class="ion-margin-bottom animate__animated animate__fadeIn">
+    <!-- Phone -->
+    <ion-item class="form-item animate__animated animate__fadeIn">
       <ion-label position="floating">Phone Number</ion-label>
       <ion-input formControlName="phone" type="tel"></ion-input>
     </ion-item>
@@ -41,10 +41,11 @@
       Please enter a valid phone number (10-15 digits)
     </div>
 
-    <ion-list-header class="animate__animated animate__fadeIn">
+    <!-- Assign to Classes -->
+    <ion-list-header class="list-header animate__animated animate__fadeIn">
       <ion-label>Assign to Classes</ion-label>
     </ion-list-header>
-    
+
     <ion-list>
       <ion-item *ngFor="let className of availableClasses" 
                 class="class-item animate__animated animate__fadeInUp"
@@ -63,9 +64,11 @@
       Please select at least one class
     </div>
 
+    <!-- Submit Button -->
     <ion-button type="submit" 
                 expand="block" 
-                class="ion-margin-top submit-button"
+                class="submit-button ion-margin-top"
+                color="tertiary"
                 [disabled]="lecturerForm.invalid || selectedClasses.length === 0 || isSubmitting">
       <span *ngIf="!isSubmitting">Add Lecturer</span>
       <ion-spinner *ngIf="isSubmitting" name="crescent"></ion-spinner>

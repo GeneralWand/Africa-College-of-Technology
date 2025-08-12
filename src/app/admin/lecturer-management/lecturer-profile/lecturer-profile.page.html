@@ -1,21 +1,19 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/lecturer-management"></ion-back-button>
     </ion-buttons>
     <ion-title>Lecturer Profile</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="resetPassword()" fill="clear">
+      <ion-button (click)="resetPassword()" fill="clear" style="margin-right: 8px;">
         <ion-icon name="refresh" slot="icon-only"></ion-icon>
       </ion-button>
-      <ion-button (click)="refreshProfile()" fill="clear">
-        <ion-icon name="reload" slot="icon-only"></ion-icon>
-      </ion-button>
+      
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="lecturer-page ion-padding">
   <!-- Loading State -->
   <div *ngIf="isLoading" class="loading-state">
     <ion-spinner name="crescent"></ion-spinner>
@@ -106,13 +104,13 @@
         <div *ngIf="activities.length > 0; else noActivity">
           <ion-list lines="none">
             <ion-item *ngFor="let activity of activities" class="activity-item">
-  <ion-icon [name]="getActivityIcon(activity.type)" slot="start" [color]="getActivityColor(activity.type)"></ion-icon>
-  <ion-label>
-    <h3>{{ activity.description }}</h3>
-    <p>{{ activity.date | date:'medium' }}</p>
-    <p *ngIf="activity.initiator" class="initiator">By: {{ activity.initiator }}</p>
-  </ion-label>
-</ion-item>
+              <ion-icon [name]="getActivityIcon(activity.type)" slot="start" [color]="getActivityColor(activity.type)"></ion-icon>
+              <ion-label>
+                <h3>{{ activity.description }}</h3>
+                <p>{{ activity.date | date:'medium' }}</p>
+                <p *ngIf="activity.initiator" class="initiator">By: {{ activity.initiator }}</p>
+              </ion-label>
+            </ion-item>
           </ion-list>
         </div>
         <ng-template #noActivity>

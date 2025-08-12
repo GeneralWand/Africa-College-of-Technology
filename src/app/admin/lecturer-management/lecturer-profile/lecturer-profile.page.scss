@@ -1,59 +1,49 @@
-/* Existing styles with enhanced specificity */
-.profile-view {
-  ion-card {
-    max-width: 600px;
-    margin: 20px auto;
-    
-    img, ion-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-    
-    ion-card-header {
-      padding-bottom: 0;
-    }
-    
-    ion-card-content {
-      p {
-        margin: 10px 0;
-      }
-    }
-  }
-
-  .loading-container, .loading-state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 50vh;
-    
-    ion-spinner {
-      width: 48px;
-      height: 48px;
-    }
-    
-    p {
-      margin-top: 16px;
-      color: var(--ion-color-medium);
-    }
-  }
+:host {
+  display: block;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
-/* New profile-specific styles */
+/* Header styles matching lecturer requests page */
+ion-header ion-toolbar {
+  --background: linear-gradient(135deg, var(--ion-color-secondary), var(--ion-color-tertiary));
+  color: white;
+  padding: 0 16px;
+  box-shadow: 0 3px 6px rgba(45, 156, 160, 0.3);
+ // border-radius: 0 0 20px 20px; /* rounded bottom corners */
+}
+
+ion-header ion-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: white;
+}
+.lecturer-page {
+  --background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Profile Card */
 .profile-card {
-  @extend ion-card;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 6px 16px rgba(45, 156, 160, 0.25); /* teal shadow */
+  max-width: 600px;
+  margin: 0 auto 24px auto;
   text-align: center;
-  
+  padding-bottom: 24px;
+
   .profile-photo-container {
     position: relative;
     width: 120px;
     height: 120px;
-    margin: 20px auto;
+    margin: 24px auto 12px auto;
     border-radius: 50%;
     overflow: hidden;
-    background-color: var(--ion-color-light);
-    
+    background-color: var(--ion-color-primary); /* teal from your page */
+    box-shadow: 0 2px 8px rgba(45, 156, 160, 0.3);
+
     .photo-frame {
       width: 100%;
       height: 100%;
@@ -61,139 +51,234 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background-color: var(--ion-color-primary);
+      background: linear-gradient(135deg, var(--ion-color-secondary), var(--ion-color-tertiary));
       color: white;
-      
+
       .placeholder-icon {
         font-size: 48px;
       }
-      
+
       .initials {
         font-size: 32px;
-        font-weight: bold;
+        font-weight: 700;
         margin-top: 8px;
+        letter-spacing: 1.2px;
       }
     }
-    
+
     ion-img.profile-photo {
       height: 100%;
+      width: 100%;
       object-fit: cover;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     }
   }
-  
-  .profile-details {
-    ion-item {
-      --padding-start: 0;
-      
-      ion-icon {
-        margin-right: 12px;
-        color: var(--ion-color-medium);
+
+  ion-card-header {
+    padding-bottom: 4px;
+
+    ion-card-title {
+      color: var(--ion-color-primary);
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 4px;
+    }
+
+    ion-card-subtitle {
+      font-weight: 600;
+      color: var(--ion-color-medium);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+
+      ion-badge {
+        font-weight: 700;
+        font-size: 0.75rem;
+        padding: 6px 12px;
+        border-radius: 12px;
+        text-transform: uppercase;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        background: linear-gradient(135deg, var(--ion-color-secondary), var(--ion-color-tertiary));
+        color: white;
+      }
+    }
+  }
+
+  ion-card-content {
+    ion-list.profile-details {
+      margin-top: 16px;
+      ion-item {
+        --padding-start: 0;
+        --inner-padding-end: 0;
+        --inner-padding-start: 8px;
+        border-radius: 15px;
+        margin-bottom: 8px;
+        background: #c3cfe2; /* light blue background from gradient */
+        box-shadow: inset 0 1px 3px rgba(45, 156, 160, 0.15);
+
+        ion-icon {
+          margin-right: 12px;
+          color: var(--ion-color-primary);
+          font-size: 22px;
+          min-width: 28px;
+        }
+
+        ion-label {
+          font-weight: 600;
+          color: var(--ion-color-primary);
+          width: 130px;
+        }
+
+        ion-text {
+          color: var(--ion-color-dark);
+          font-weight: 500;
+          white-space: normal;
+        }
       }
     }
   }
 }
 
+/* Activity Card */
 .activity-card {
-  @extend ion-card;
-  
-  .activity-item {
-    --padding-start: 0;
-    margin-bottom: 12px;
-    
-    ion-icon {
-      font-size: 24px;
-      margin-right: 12px;
-    }
-    
-    h3 {
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-    
-    p {
-      font-size: 12px;
-      color: var(--ion-color-medium);
-      margin: 0;
+  background: white;
+  border-radius: 20px;
+  max-width: 600px;
+  margin: 0 auto 24px auto;
+  box-shadow: 0 6px 18px rgba(45, 156, 160, 0.15);
+  padding-bottom: 16px;
+
+  ion-card-header {
+    ion-card-title {
+      color: var(--ion-color-primary);
+      font-weight: 700;
+      font-size: 1.4rem;
+      padding: 16px 0 0 16px;
     }
   }
-  
-  .no-activity {
-    text-align: center;
-    padding: 20px;
-    
-    ion-icon {
-      font-size: 48px;
-      color: var(--ion-color-medium);
-      margin-bottom: 16px;
+
+  ion-card-content {
+    padding: 0 16px 16px 16px;
+
+    ion-list {
+      margin: 0;
+
+      ion-item.activity-item {
+        --padding-start: 0;
+        margin-bottom: 12px;
+        border-radius: 15px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: rgba(45, 156, 160, 0.07);
+        }
+
+        ion-icon {
+          font-size: 24px;
+          margin-right: 12px;
+          color: var(--ion-color-primary);
+          min-width: 32px;
+        }
+
+        ion-label {
+          h3 {
+            font-size: 14px;
+            margin-bottom: 2px;
+            color: var(--ion-color-dark);
+            font-weight: 600;
+          }
+
+          p {
+            font-size: 12px;
+            color: var(--ion-color-medium);
+            margin: 0;
+          }
+
+          p.initiator {
+            font-style: italic;
+            color: var(--ion-color-medium);
+            margin-top: 4px;
+            font-size: 11px;
+          }
+        }
+      }
     }
-    
-    p {
-      color: var(--ion-color-medium);
+
+    .no-activity {
+      text-align: center;
+      padding: 40px 0;
+
+      ion-icon {
+        font-size: 48px;
+        color: var(--ion-color-medium);
+        margin-bottom: 16px;
+      }
+
+      p {
+        font-size: 14px;
+        color: var(--ion-color-medium);
+        font-weight: 600;
+      }
     }
   }
 }
 
-/* Error state styles */
+/* Loading & Error States */
+.loading-state,
 .error-state {
-  @extend .loading-container;
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  color: var(--ion-color-medium);
+
+  ion-spinner {
+    width: 48px;
+    height: 48px;
+    color: var(--ion-color-primary);
+  }
+
   ion-icon {
     font-size: 48px;
     margin-bottom: 16px;
-    color: var(--ion-color-danger);
   }
-  
+
   p {
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 0;
+    max-width: 320px;
+    text-align: center;
+  }
+
+  &.error-state {
     color: var(--ion-color-danger);
+
+    ion-icon {
+      color: var(--ion-color-danger);
+    }
   }
 }
 
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 600px) {
   .profile-card, .activity-card {
     margin: 16px;
-    width: auto;
   }
-  
-  .profile-card {
-    .profile-photo-container {
-      width: 100px;
-      height: 100px;
-      
-      .placeholder-icon {
-        font-size: 40px;
-      }
-      
-      .initials {
-        font-size: 28px;
-      }
-    }
-  }
-}
-/* Add to your SCSS file */
-.initiator {
-  font-size: 11px;
-  color: var(--ion-color-medium-shade);
-  margin-top: 2px;
-}
 
-/* Style the reset button */
-ion-button[slot='end'] {
-  --padding-start: 8px;
-  --padding-end: 8px;
-}
+  .profile-card .profile-photo-container {
+    width: 100px;
+    height: 100px;
 
-/* Activity item enhancements */
-.activity-item {
-  ion-label {
-    h3 {
-      white-space: normal;
+    .placeholder-icon {
+      font-size: 40px;
     }
-    
-    p {
-      &.initiator {
-        font-style: italic;
-      }
+
+    .initials {
+      font-size: 28px;
     }
   }
 }

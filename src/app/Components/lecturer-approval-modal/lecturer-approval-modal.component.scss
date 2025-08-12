@@ -1,0 +1,78 @@
+:host {
+  --ion-background-color: #f5f7fa;
+}
+
+.modal-header ion-toolbar {
+  --background: linear-gradient(135deg, var(--ion-color-secondary), var(--ion-color-tertiary));
+  color: white;
+}
+
+.modal-header ion-title {
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.modal-content {
+  --background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.form-item {
+  border-radius: 12px;
+  margin-bottom: 8px;
+  --background: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+}
+
+.class-item {
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  margin-bottom: 6px;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &.selected {
+    background: rgba(var(--ion-color-primary-rgb), 0.08);
+    border-left: 4px solid var(--ion-color-primary);
+  }
+}
+
+.list-header {
+  font-weight: 600;
+  color: var(--ion-color-primary);
+}
+
+.credentials-card {
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+  }
+
+  ion-card-title {
+    font-weight: 600;
+    color: var(--ion-color-primary);
+  }
+}
+
+.submit-button {
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+
+  &:hover:not([disabled]) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+}

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { LecturerManagementPage } from './admin/lecturer-management/lecturer-management.page';
 
 const routes: Routes = [
   {
@@ -107,6 +108,17 @@ const routes: Routes = [
     path: 'support',
     loadChildren: () => import('./student/support/support.module').then( m => m.SupportPageModule)
   },
+  {
+    path: 'lecturer-profile/:id',
+    loadChildren: () => import('./admin/lecturer-management/lecturer-profile/lecturer-profile.module').then( m => m.LecturerProfilePageModule)
+  },
+  
+
+  
+
+  
+
+  
 ];
 
 @NgModule({

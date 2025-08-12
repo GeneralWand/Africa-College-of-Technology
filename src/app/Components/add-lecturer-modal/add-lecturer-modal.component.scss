@@ -1,0 +1,48 @@
+ion-content {
+  --background: #f5f5f5;
+}
+
+.class-item {
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  --background-hover: var(--ion-color-light);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  &.selected {
+    --background: rgba(var(--ion-color-primary-rgb), 0.1);
+    border-left: 4px solid var(--ion-color-primary);
+  }
+}
+
+.error-message {
+  color: var(--ion-color-danger);
+  font-size: 0.8rem;
+  margin: -10px 0 15px 16px;
+  animation-duration: 0.5s;
+}
+
+.submit-button {
+  transition: all 0.3s ease;
+  
+  &:hover:not([disabled]) {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  &:active:not([disabled]) {
+    transform: translateY(0);
+  }
+}
+
+.animate__animated {
+  --animate-duration: 0.5s;
+}
+
+.animate__fadeInUp {
+  --animate-delay: 0.1s;
+}

@@ -1,13 +1,97 @@
-<ion-header [translucent]="true">
+<ion-header class="lecturer-header">
   <ion-toolbar>
-    <ion-title>lecturer-management</ion-title>
+    <ion-title>Lecturer Requests</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="refreshLecturers()" class="refresh-btn animate__animated animate__pulse animate__infinite">
+        <ion-icon slot="icon-only" name="refresh"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">lecturer-management</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="lecturer-page ion-padding">
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <div class="text-content">
+      <h2>Manage Lecturer Requests</h2>
+      <p>View, approve, and manage lecturer records easily.</p>
+      <ion-button color="tertiary" shape="round" (click)="openAddLecturerModal">+ Add / Assign Lecturer</ion-button>
+
+    </div>
+    <div class="graphic-elements">
+      <div class="triangle-orange"></div>
+      <div class="triangle-blue"></div>
+    </div>
+  </div>
+
+  <!-- REFRESHER -->
+  <ion-refresher slot="fixed" (ionRefresh)="loadLecturers($event)">
+    <ion-refresher-content pullingIcon="lines" refreshingSpinner="crescent"></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Loading lecturer requests...</p>
+  </div>
+
+  <!-- Pending Requests -->
+  <div class="lecturer-list" *ngIf="!isLoading && lecturerRequests.length > 0">
+    <ion-card *ngFor="let lecturer of lecturerRequests" class="lecturer-item">
+      <ion-card-header (click)="openLecturerApprovalModal(lecturer)">
+        <ion-card-title>{{ lecturer.name }}</ion-card-title>
+        <ion-card-subtitle>{{ lecturer.email }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Phone:</strong> {{ lecturer.phone }}</p>
+        <p class="request-date">Requested: {{ lecturer.requestDate | date }}</p>
+        <ion-badge color="warning" class="badge">Pending Approval</ion-badge>
+        <div class="card-actions">
+          <ion-button fill="clear" color="primary" (click)="viewProfile(lecturer); $event.stopPropagation()" title="View Profile">
+            <ion-icon name="person-circle"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Empty State for Pending Requests -->
+  <ion-item *ngIf="!isLoading && lecturerRequests.length === 0" class="empty-state">
+    <ion-icon name="people-outline" slot="start" color="medium" size="large"></ion-icon>
+    <ion-label color="medium">No pending lecturer requests</ion-label>
+  </ion-item>
+
+  <!-- Approved Lecturers -->
+  <div class="lecturer-list" *ngIf="lecturers.length > 0">
+    <ion-card *ngFor="let lecturer of lecturers" class="lecturer-item">
+      <ion-card-header>
+        <ion-card-title>{{ lecturer.name }}</ion-card-title>
+        <ion-card-subtitle>{{ lecturer.email }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-badge [color]="lecturer.status === 'active' ? 'success' : 'danger'" class="status-badge">
+          {{ lecturer.status | titlecase }}
+        </ion-badge>
+        <div class="card-actions">
+          <ion-button color="tertiary" (click)="viewProfile(lecturer)" title="View Profile">
+            <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
+          </ion-button>
+          <ion-button color="warning" (click)="resetPassword(lecturer)" title="Reset Password">
+            <ion-icon slot="icon-only" name="refresh-circle-outline"></ion-icon>
+          </ion-button>
+          <ion-button [color]="lecturer.status === 'active' ? 'danger' : 'success'"
+                      (click)="toggleLecturerStatus(lecturer)"
+                      [title]="lecturer.status === 'active' ? 'Suspend Lecturer' : 'Reactivate Lecturer'">
+            <ion-icon slot="icon-only"
+                      [name]="lecturer.status === 'active' ? 'remove-circle-outline' : 'checkmark-circle-outline'">
+            </ion-icon>
+          </ion-button>
+          <ion-button color="medium" (click)="viewBilling(lecturer)" title="View Billing">
+            <ion-icon slot="icon-only" name="cash-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

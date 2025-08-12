@@ -1,0 +1,199 @@
+/* Existing styles with enhanced specificity */
+.profile-view {
+  ion-card {
+    max-width: 600px;
+    margin: 20px auto;
+    
+    img, ion-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    ion-card-header {
+      padding-bottom: 0;
+    }
+    
+    ion-card-content {
+      p {
+        margin: 10px 0;
+      }
+    }
+  }
+
+  .loading-container, .loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    
+    ion-spinner {
+      width: 48px;
+      height: 48px;
+    }
+    
+    p {
+      margin-top: 16px;
+      color: var(--ion-color-medium);
+    }
+  }
+}
+
+/* New profile-specific styles */
+.profile-card {
+  @extend ion-card;
+  text-align: center;
+  
+  .profile-photo-container {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 20px auto;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: var(--ion-color-light);
+    
+    .photo-frame {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--ion-color-primary);
+      color: white;
+      
+      .placeholder-icon {
+        font-size: 48px;
+      }
+      
+      .initials {
+        font-size: 32px;
+        font-weight: bold;
+        margin-top: 8px;
+      }
+    }
+    
+    ion-img.profile-photo {
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  .profile-details {
+    ion-item {
+      --padding-start: 0;
+      
+      ion-icon {
+        margin-right: 12px;
+        color: var(--ion-color-medium);
+      }
+    }
+  }
+}
+
+.activity-card {
+  @extend ion-card;
+  
+  .activity-item {
+    --padding-start: 0;
+    margin-bottom: 12px;
+    
+    ion-icon {
+      font-size: 24px;
+      margin-right: 12px;
+    }
+    
+    h3 {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    
+    p {
+      font-size: 12px;
+      color: var(--ion-color-medium);
+      margin: 0;
+    }
+  }
+  
+  .no-activity {
+    text-align: center;
+    padding: 20px;
+    
+    ion-icon {
+      font-size: 48px;
+      color: var(--ion-color-medium);
+      margin-bottom: 16px;
+    }
+    
+    p {
+      color: var(--ion-color-medium);
+    }
+  }
+}
+
+/* Error state styles */
+.error-state {
+  @extend .loading-container;
+  
+  ion-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    color: var(--ion-color-danger);
+  }
+  
+  p {
+    color: var(--ion-color-danger);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .profile-card, .activity-card {
+    margin: 16px;
+    width: auto;
+  }
+  
+  .profile-card {
+    .profile-photo-container {
+      width: 100px;
+      height: 100px;
+      
+      .placeholder-icon {
+        font-size: 40px;
+      }
+      
+      .initials {
+        font-size: 28px;
+      }
+    }
+  }
+}
+/* Add to your SCSS file */
+.initiator {
+  font-size: 11px;
+  color: var(--ion-color-medium-shade);
+  margin-top: 2px;
+}
+
+/* Style the reset button */
+ion-button[slot='end'] {
+  --padding-start: 8px;
+  --padding-end: 8px;
+}
+
+/* Activity item enhancements */
+.activity-item {
+  ion-label {
+    h3 {
+      white-space: normal;
+    }
+    
+    p {
+      &.initiator {
+        font-style: italic;
+      }
+    }
+  }
+}

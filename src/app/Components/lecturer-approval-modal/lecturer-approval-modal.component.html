@@ -1,0 +1,74 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Approve Lecturer</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="approvalForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input formControlName="name"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input formControlName="email" type="email"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Phone</ion-label>
+        <ion-input formControlName="phone" type="tel"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-list-header>
+      <ion-label>Assign Classes</ion-label>
+    </ion-list-header>
+    
+    <ion-list>
+      <ion-item *ngFor="let className of availableClasses" 
+                (click)="toggleClassSelection(className)"
+                [class.selected]="selectedClasses.includes(className)">
+        <ion-label>{{ className }}</ion-label>
+        <ion-icon *ngIf="selectedClasses.includes(className)" 
+                  name="checkmark" 
+                  slot="end"
+                  color="primary"></ion-icon>
+      </ion-item>
+    </ion-list>
+
+    <ion-card class="credentials-card">
+      <ion-card-header>
+        <ion-card-title>Login Credentials</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>Username:</ion-label>
+          <ion-text>{{ generatedCredentials.username }}</ion-text>
+        </ion-item>
+        <ion-item>
+          <ion-label>Password:</ion-label>
+          <ion-text>{{ generatedCredentials.password }}</ion-text>
+        </ion-item>
+        <ion-button fill="clear" (click)="generateCredentials()">
+          <ion-icon slot="start" name="refresh"></ion-icon>
+          Regenerate
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button expand="block" 
+                color="primary"
+                (click)="approveLecturer()"
+                [disabled]="!approvalForm.valid || selectedClasses.length === 0">
+      Approve & Send Credentials
+    </ion-button>
+  </form>
+</ion-content>

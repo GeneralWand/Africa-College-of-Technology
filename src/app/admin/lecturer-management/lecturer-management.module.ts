@@ -7,14 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { LecturerManagementPageRoutingModule } from './lecturer-management-routing.module';
 
 import { LecturerManagementPage } from './lecturer-management.page';
+import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LecturerManagementPageRoutingModule
+    LecturerManagementPageRoutingModule,
+    LecturerManagementPage
   ],
-  declarations: [LecturerManagementPage]
+ // declarations: [LecturerManagementPage],
+  providers: [HttpClient],
 })
 export class LecturerManagementPageModule {}
